@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified"
+	xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield">
+	<Dialog id="mainPage" title="{= (${worklistView>/PartnerEditMode} === true) ? ${i18n>ttlEditPartner} : ${i18n>ttlAddPartner} }"
+		contentWidth="400px" contentHeight="638px" busy="{worklistView>/busy}" busyIndicatorDelay="{worklistView>/delay}" resizable="true"
+		draggable="true" titleAlignment="Center">
+		<Page showHeader="false" class="sapUiContentPadding" id="s">
+			<content>
+				<smartForm:SmartForm id="sfCreateEditItem" editable="true" editTogglable="false" flexEnabled="false" expandable="false"
+					useHorizontalLayout="false">
+					<smartForm:Group id="sfgCreateEditItem">
+						<smartForm:GroupElement id="sfgePartnerCode">
+							<smartField:SmartField fieldGroupIds="gID_Item01" editable="true" id="idPartnerCode" value="{PartnerCode}"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement id="sfgPartnerName">
+							<smartField:SmartField fieldGroupIds="gID_Item01" editable="true" id="idPartnerName" value="{PartnerName}"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement id="sfgRol" label="{i18n>ttlChooseRoles}">
+							<ScrollContainer id="tfCustomer" height="205px" width="100%" horizontal="false" vertical="true">
+								<List id="ProductList" growing="true" growingScrollToLoad="true" updateFinished="updateFinishedCreateEditPartner" items="{/vRoles}"
+									mode="MultiSelect" includeItemInSelection="true" selectionChange="Roles_selectionFinish">
+									<headerToolbar></headerToolbar>
+									<items>
+										<CustomListItem selected="{path:'RoleID', formatter:'.onFormatSelectedRoles'}">
+											<HBox height="40px">
+												<HBox>
+													<core:Icon size="1.5rem" src="{RoleIcon}" class="roleIcons sapUiSmallMarginEnd"/>
+												</HBox>
+												<HBox class="roleLabel">
+													<Label text="{RoleName}"/>
+												</HBox>
+											</HBox>
+										</CustomListItem>
+									</items>
+								</List>
+							</ScrollContainer>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement id="sfgIntegrationID">
+							<smartField:SmartField fieldGroupIds="gID_Item01" editable="true" id="idIntegrationID" value="{IntegrationID}"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement label="{i18n>tJBPPartnerDescription}">
+							<TextArea fieldGroupIds="gID_Item01" value="{PartnerDescription}" width="100%" showExceededText="true" maxLength="255" rows="3"/>
+						</smartForm:GroupElement>
+					</smartForm:Group>
+				</smartForm:SmartForm>
+			</content>
+			<footer>
+				<Toolbar id="footerToolbar">
+					<ToolbarSpacer id="footerToolbarSpacer"/>
+					<Button id="createEditPartnerSaveButton" enabled="false" text="{i18n>btnSave}" press="onPressDialogSave" type="Default"
+						tooltip="{i18n>ttSave}"/>
+					<Button id="createEditPartnerCancelButton" text="{i18n>btnCancel}" press="onPressDialogCancel" type="Default" tooltip="{i18n>ttCancel}"/>
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

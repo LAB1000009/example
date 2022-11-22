@@ -1,0 +1,145 @@
+<edmx:Edmx
+	xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/jetCloud/apps/jbpartners/EntityParamsEditor/v01/01.xsodata/$metadata">  --!!
+        
+		<edmx:Include Alias="Metadata" Namespace="jetCloud.apps.jbpartners.EntityParamsEditor.v01.01"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema
+			xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/Instance">
+				<Annotation Term="UI.Hidden" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Hidden"/>
+				<Annotation Term="Common.Label" String="{@i18n>tInstance}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/PartnerID">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.Label" String="{@i18n>tJBPPartnerID}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/Version">
+				<Annotation Term="UI.Hidden" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Hidden"/>
+				<Annotation Term="Common.Label" String="{@i18n>tVersion}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/PartnerName">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+				<Annotation Term="Common.Label" String="{@i18n>tJBPPartnerName}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/PartnerTypeID">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
+				<Annotation Term="Common.Label" String="{@i18n>tJBPPartnerTypeID}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="vMasterTypes"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="PartnerTypeID"/>
+									<PropertyValue Property="ValueListProperty" String="PartnerTypeID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PartnerID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PartnerCode"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PartnerName"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PartnerDescription"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PartnerTypeID"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/PartnerDescription">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
+				<Annotation Term="Common.Label" String="{@i18n>tJBPPartnerDescription}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/PartnerCode">
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
+				<Annotation Term="Common.Label" String="{@i18n>tJBPPartnerCode}"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/Roles">
+				<Annotation Term="Common.Label" String="{@i18n>tRoles}"/>
+				
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Optional"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/Created">
+				<Annotation Term="Common.Label" String="{@i18n>tCreated}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/CreatedBy">
+				<Annotation Term="Common.Label" String="{@i18n>tCreatedBy}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/Modified">
+				<Annotation Term="Common.Label" String="{@i18n>tModified}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/ModifiedBy">
+				<Annotation Term="Common.Label" String="{@i18n>tModifiedBy}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType/IntegrationID">
+				<Annotation Term="Common.Label" String="{@i18n>tIntegrationID}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="jetCloud.apps.jbpartners.PartnersEditor.v01.01.vMasterType">
+				<Annotation Term="UI.PresentationVariant">
+					<Record Type="UI.PresentationVariantType">
+						<PropertyValue Property="RequestAtLeast">
+							<Collection>
+								<PropertyPath>Instance</PropertyPath>
+								<PropertyPath>Version</PropertyPath>
+								<PropertyPath>PartnerCode</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>ID</PropertyPath>
+						<PropertyPath>Name</PropertyPath>
+						<PropertyPath>PartnerTypeID</PropertyPath>
+						<PropertyPath>PartnerCode</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PartnerID"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PartnerCode"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PartnerName"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Description"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PartnerTypeID"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

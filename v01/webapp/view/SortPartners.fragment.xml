@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog contentHeight="288px" confirm="handleConfirmSorting">
+		<sortItems>
+			<ViewSettingsItem text="Partner code" key="PartnerCode" selected="true"/>
+			<ViewSettingsItem text="Partner name" key="PartnerName"/>
+			<ViewSettingsItem text="Partner description" key="PartnerDescription"/>
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,86 @@
+.PartnerRowLabel {
+    font-size: 20px;
+}
+
+.divWithIconsAndEdit {
+	position: absolute;
+	right: 0;
+}
+.HBox1_2_1{
+	border-left: 1px solid DarkGrey;
+}
+.divWithIcons{
+	position: absolute;
+	bottom: 0;
+}
+.TitlePartner {
+	margin-right: auto !important;
+	margin-left: 15px !important;
+}
+.sapMILILabel {
+	overflow: inherit;
+	z-index: 101;
+}
+.Sticky {
+	position: sticky;
+}
+.ListPadding {
+	padding: 0rem 0rem 0rem 0rem ;
+}
+.roleIcons {
+	position: absolute;               /* 2 */
+   top: 50%;                         /* 3 */
+   transform: translate(0, -50%);
+}
+.roleLabel {
+position: absolute;
+    left: 30%;
+    margin-right: -50%;
+    top: 50%;
+    transform: translate(0, -40%);
+}
+
+
+.IncreaseAttrButton {
+	margin-left: 7px;
+}
+
+.Text {
+    font-size: 18px;
+}
+.TextMaster {
+    font-size: 15px;
+    padding-bottom: 0;
+}
+.InputDateFrom {
+	float: left;
+}
+.InputDateTo {
+	float: left;
+}
+.Input {
+	float: right;
+}
+.HistoryBox {
+    margin-right: -2px;
+}
+.HistoryLabelsEdit {
+    text-align: left;
+    margin-top: 8px;
+    float: left;
+}   
+.HistoryLabels {
+    text-align: left;
+    float: left;
+}   
+.stickyToolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 101;
+}
+
+.MainRoleIcons {
+	margin-top: 3px;
+}
+

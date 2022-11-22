@@ -1,0 +1,95 @@
+<mvc:View controllerName="jetCloud.PartnersEditor.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:l="sap.ui.layout"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<semantic:SemanticPage id="page" busy="{worklistView&gt;/busy}" busyIndicatorDelay="{worklistView&gt;/tableBusyDelay}"
+		toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="false" titleAreaShrinkRatio="1:1.6:1.6"
+		showFooter="{worklistView&gt;/showFooter}" class="sapUiNoContentPadding">
+		<semantic:titleHeading>
+			<l:HorizontalLayout>
+				<Title id="worklistTitle" text="{i18n>PartnersEditor_appTitle}"/>
+				<Button id="btNavigateToLogs" icon="sap-icon://inspect" type="Transparent" press="onNavigateToLogs" tooltip="{i18n>ttLogViewerNavButton}"
+					visible="{objectView>/LogViewerNavButton}"></Button>
+			</l:HorizontalLayout>
+		</semantic:titleHeading>
+		<semantic:headerContent></semantic:headerContent>
+		<semantic:content>
+			<l:ResponsiveSplitter defaultPane="default">
+				<l:PaneContainer>
+					<l:SplitPane requiredParentWidth="400" id="default">
+						<l:layoutData>
+							<l:SplitterLayoutData size="40%" minSize="400px"/>
+						</l:layoutData>
+						<Panel id="Panel" height="100%" blocked="{= ${worklistView>/ChangeOrderMode} || ${worklistView>/EditMode}}" >
+							<List id="list" width="auto" class="sapFDynamicPageAlignContent" items="{ path: '/vMaster', factory: '.factoryPartnerList'}"
+								busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}"
+								mode="{= ${worklistView>/MultiToggle} ? 'MultiSelect' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+								selectionChange=".onSelectionPartnerChange" updateFinished=".updateFinishedPartnerList" sticky="HeaderToolbar">
+								<headerToolbar>
+									<OverflowToolbar blocked="{= ${worklistView>/ChangeOrderMode} || ${worklistView>/EditMode}}">
+										<SearchField id="searchField" showRefreshButton="false"  search=".onSearch" width="auto">
+											<layoutData>
+												<OverflowToolbarLayoutData minWidth="150px" maxWidth="240px" shrinkable="true" priority="NeverOverflow"/>
+											</layoutData>
+										</SearchField>
+										<OverflowToolbarToggleButton text="{i18n&gt;ttChangeSelectionMode}" tooltip="{i18n&gt;ttChangeSelectionMode}" type="Default" icon="sap-icon://activities" pressed="{worklistView>/MultiToggle}"
+											press=".ResetSelections"/>
+										<OverflowToolbarToggleButton text="{i18n&gt;ttDeactivateMode}" tooltip="{i18n&gt;ttDeactivateMode}" type="Default" icon="sap-icon://fridge" pressed="{worklistView>/DeactivateMode}"
+											press="RefreshData" enabled="{=!${worklistView>/DeactivateModeMaster} &amp;&amp; !${worklistView>/EditMode}}"/>
+										<ObjectStatus text="{i18n>infDeactivatedModeOn}" inverted="true" state="Warning" visible="{=${worklistView>/DeactivateMode}}"/>
+										<ToolbarSpacer id="smtableToolbarSpacerItems"/>
+										<Select id="sLanguage" forceSelection="false" selectedKey="{worklistView>/table/selectedLanguage}" change="onSelectLanguageChange"
+										items="{ path: '/vLanguages' }">
+										<core:Item key="{LanguageID}" text="{LanguageName}"/>
+									</Select>
+										<OverflowToolbarButton text="{i18n&gt;ttAddPartner}" tooltip="{i18n&gt;ttAddPartner}" id="btnItemAdd" icon="sap-icon://add" type="Default" press="onPressPartnerAdd"/>
+										<OverflowToolbarButton text="{i18n&gt;ttRestore}" tooltip="{i18n&gt;ttRestore}" type="Default" icon="sap-icon://cause"
+											press="onPressDetailRestore"
+											enabled="{= !(!${worklistView>/DeactivateMode} || ${worklistView>/SelectedItems} === 0 || ${worklistView>/DeactivateModeMaster})}"
+											visible="{worklistView>/DeactivateMode}"/>
+										<OverflowToolbarButton text="{= ${worklistView>/DeactivateMode} ? ${i18n&gt;ttDelete} : ${i18n&gt;ttDeactivate}}" tooltip="{= ${worklistView>/DeactivateMode} ? ${i18n&gt;ttDelete} : ${i18n&gt;ttDeactivate}}" type="Default" icon="sap-icon://delete"
+											press="onPressPartnerDelete" enabled="{= ${worklistView>/SelectedItems} > 0 }" visible="true"/>
+										<OverflowToolbarButton text="{i18n&gt;ttSort}" icon="sap-icon://sort" press="onPressSortPartners" tooltip="{i18n&gt;ttSort}"/>
+										<OverflowToolbarButton text="{i18n&gt;ttRefresh}" tooltip="{i18n&gt;ttRefresh}" type="Default" icon="sap-icon://refresh" press="RefreshPartnerList"
+											visible="true"/>
+									</OverflowToolbar>
+								</headerToolbar>
+								<infoToolbar>
+									<OverflowToolbar visible="{=${worklistView>/SelectedItems}>1}" active="true">
+										<Label text="{worklistView>/SelectedItems} {i18n>infSelectedItems}"/>
+									</OverflowToolbar>
+								</infoToolbar>
+							</List>
+						</Panel>
+					</l:SplitPane>
+					<l:SplitPane requiredParentWidth="800px">
+						<l:layoutData>
+							<l:SplitterLayoutData size="59%" minSize="400px"/>
+						</l:layoutData>
+						<Page busy="{worklistView&gt;/DetailBusy}" busyIndicatorDelay="{worklistView&gt;/tableBusyDelay}">
+							<headerContent>
+								<Title text='{=${worklistView>/PartnerName}}' class="TitlePartner" titleStyle="H3"/>
+								<Button icon="sap-icon://add-product" text="{i18n>btnAddGroup}" type="Default" tooltip="{i18n>ttAddGroup}" press=".onPressAddGroup"
+									enabled="{= !${worklistView>/EditMode}}"/>
+								<ToggleButton icon="sap-icon://list" text="{i18n>btnChangeOrder}" pressed="{= ${worklistView>/ChangeOrderMode} === true}" type="Default"
+									press=".onChangeOrder" enabled="{= !${worklistView>/EditMode}}" tooltip="{i18n>ttChangeOrder}"/>
+								<Button icon="sap-icon://edit" text="{i18n>btnEdit}" visible="{= ${worklistView>/EditMode} !== true}" type="Default"
+									press=".onPressEditAttributes" enabled="{= !${worklistView>/ChangeOrderMode}}" tooltip="{i18n>ttEdit}"/>
+								<Button icon="sap-icon://save" text="{i18n>btnSave}" visible="{worklistView>/EditMode}" press="onPressSave" type="Ghost"
+									tooltip="{i18n>ttSave}"/>
+								<Button icon="sap-icon://cancel" text="{i18n>btnCancel}" visible="{worklistView>/EditMode}" press=".onPressCancelEditAttributes"
+									type="Ghost" tooltip="{i18n>ttCancel}"/>
+								<Button tooltip="{i18n&gt;ttRefresh}" icon="sap-icon://refresh" type="Default" press="RefreshAll"
+									enabled="{= !${worklistView>/EditMode} &amp;&amp; !${worklistView>/ChangeOrderMode}}"/>
+							</headerContent>
+							<IconTabBar visible="{=${worklistView>/PartnerName} !== 'No data'}" id="itemsFilterIconTabBar" enableTabReordering="false"
+								selectedKey="{worklistView>/TabSelectedKey}" select="onSelectIconTabBar" backgroundDesign="Transparent" headerBackgroundDesign="Transparent"
+								headerMode="Inline" tabDensityMode="Compact" items="{path: '/vRoles',factory: '.factoryIconTabBar'}" 
+								expandable="false" stretchContentHeight="true" applyContentPadding="false"></IconTabBar>
+						</Page>
+					</l:SplitPane>
+					<!--</l:PaneContainer>-->
+				</l:PaneContainer>
+			</l:ResponsiveSplitter>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

@@ -1,0 +1,84 @@
+service
+{  
+//system entities begin
+    "JETCLOUD_HDB"."jetCloud.jbcommon.dbv::vSpActionsLogs" as "vSpActionsLogs" keys ("ProjectID","ModuleID","SubModuleID","ApplicationID","SessionID")
+    create using "jetCloud.jbcommon.sp::vSpActionsLogsIns" delete forbidden update forbidden; 
+     
+    "JETCLOUD_HDB"."jetCloud.jbpartners.dbv::getsqNewID" as "getsqNewID"  keys ("sqID") create forbidden delete forbidden update forbidden;
+    
+//    "JETCLOUD_HDB"."jetCloud.jbcommon.dbv::vSpActions" as "vSpActions" keys ("ProjectID","ModuleID","SubModuleID","ApplicationID","SessionID") 
+//    create using "jetCloud.jbpartners.act::vSpActionsIns" update forbidden delete forbidden;
+//                      jbpartners - need change to yore module!     
+
+    "JETCLOUD_HDB"."jetCloud.jbcommon.dbv::vSessions" as "vSessions"  keys ("SessionID") create forbidden delete forbidden update forbidden;
+//system entities end
+"JETCLOUD_HDB"."jetCloud.jbcommon.dbv::vLang" as "vLanguages" keys ("LanguageID");
+
+//  Crossmodule entities begin =================================================
+    //"JETCLOUD_HDB"."jetCloud.jbpartners.s112.dbv.s119::SectionsFeedbacksLikes" as "SectionsFeedbacksLikes" 
+     //   keys ("SubReferenceID", "LikeID") 
+     //   create forbidden 
+     //   update forbidden
+     //   delete forbidden;
+    
+ //   "JETCLOUD_HDB"."jetCloud.jbpartners.s112.dbv::SectionsFeedbacks" as "SectionsFeedbacks" 
+   //     keys ("FeedbackID") 
+    //    create using "jetCloud.jbpartners.s112.sp::SectionsFeedbacksIns"
+     ///   update using "jetCloud.jbpartners.s112.sp::SectionsFeedbacksUpd"
+      //  delete using "jetCloud.jbpartners.s112.sp::SectionsFeedbacksDel"; 
+//  Crossmodule entities end ===================================================
+
+
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vPartners" as "vMaster" 
+keys("PartnerID", "Instance", "Language")
+create using "jetCloud.jbpartners.sp::vPartnersIns"
+update using "jetCloud.jbpartners.sp::vPartnersUpd"
+delete using "jetCloud.jbpartners.sp::vPartnersDel"; 
+
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vRoles" as "vRoles" 
+keys("RoleID", "Instance", "Version","Language") 
+create using "jetCloud.jbpartners.sp::vRolesIns"
+update forbidden 
+delete forbidden; 
+
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vLookUpValues" as "vLookUpValues"  
+keys("PartnerAttributeID")
+create using "jetCloud.jbpartners.sp::vLookUpValuesIns"
+update using "jetCloud.jbpartners.sp::vLookUpValuesUpd" 
+delete using "jetCloud.jbpartners.sp::vLookUpValuesDel"; 
+ 
+"JETCLOUD_HDB"."jetCloud.jbpartners::cds.vPartnerRoles" as "vMasterRoles" 
+keys("PartnerID", "RoleID", "Instance", "Version")
+create using "jetCloud.jbpartners.sp::vPartnerRolesIns"
+update forbidden  
+delete forbidden; 
+ 
+"JETCLOUD_HDB"."jetCloud.jbpartners::cds.vAttributes" as "vAttributes" 
+keys("AttributeID", "Instance", "Version");  
+
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vAttributesHistoryLookUp" as "vAttributesHistoryLookUp" 
+keys("AttributeID", "AttributeValue"); 
+
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vPartnersAttrTotal01" as "vMasterAttrTotal01" 
+keys("PartnerAttributeID", "PartnerRoleID", "Instance","AttributeID", "Language")
+create using "jetCloud.jbpartners.sp::vPartnersAttrIns"
+update using "jetCloud.jbpartners.sp::vPartnersAttrUpd" 
+delete using "jetCloud.jbpartners.sp::vPartnerAttrDel"; 
+ 
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vPartnersAttrHistory" as "vMasterAttrHistory" 
+keys("PartnerAttributeID", "PartnerRoleID", "Version", "Instance","AttributeID")
+create using "jetCloud.jbpartners.sp::vPartnersAttrHistoryIns" 
+update using "jetCloud.jbpartners.sp::vPartnersAttrHistoryUpd" 
+delete using "jetCloud.jbpartners.sp::vPartnerAttrHistoryDel" ;
+  
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vTemplateAttributes" as "vTemplateAttributes"  keys ("AttributeID") create forbidden delete forbidden update forbidden;
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vAttributes" as "vAllAttributes"  keys ("AttributeID", "Language") create forbidden delete forbidden update forbidden;
+"JETCLOUD_HDB"."jetCloud.jbpartners.dbv::vGroupAttributes" as "vGroupAttributes"  keys ("AttributeID", "RoleID", "Language") create forbidden delete forbidden update forbidden;
+}   
+annotations {
+    enable OData4SAP;
+}
+settings
+{ 
+support null;
+}

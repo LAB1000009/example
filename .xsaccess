@@ -1,0 +1,6 @@
+{
+    "exposed":true,
+    "authentication":[{"method":"Form"}],
+    "authorization": [ "jetCloud.apps.jbpartners.PartnersEditor2::Execute" ],
+    "prevent_xsrf": true
+}
